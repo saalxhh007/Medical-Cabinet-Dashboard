@@ -38,11 +38,12 @@ interface Medication {
     instructions: string[]
 }
 
-interface vitalSigns {
-    bloodPressure?: string
-    heartRate?: string
-    temperature?: number
-    weight?: number
+interface VitalSigns {
+  bloodPressure?: string
+  heartRate?: number
+  temperature?: number
+  weight?: number
+  height?: number
 }
 
 interface Patient {
