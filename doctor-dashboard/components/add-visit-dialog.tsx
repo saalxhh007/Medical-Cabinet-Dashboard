@@ -39,10 +39,10 @@ interface Medication {
 }
 
 interface vitalSigns {
-    bloodPressure:string
-    heartRate: string
-    temperature: number
-    weight: number
+    bloodPressure?: string
+    heartRate?: string
+    temperature?: number
+    weight?: number
 }
 
 interface Patient {
