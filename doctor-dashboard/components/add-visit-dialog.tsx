@@ -13,21 +13,21 @@ import { X, Plus } from "lucide-react"
 
 interface Visit {
     id: number
-    date: string
-    time: string
-    type: string
-    status: string
-    duration: string
+    date?: string
+    time?: string
+    type?: string
+    status?: string
+    duration?: string
     diagnosis: string[]
     symptoms: string[]
     notes: string[]
     chiefComplaint: string
-    vitalSigns: vitalSigns
+    vitalSigns: VitalSigns
     medications: Medication[]
     treatment: string
     followUpDate: string
     createdAt: string
-    patient: Patient
+    patientId: number
 }
 
 interface Medication {
@@ -44,17 +44,6 @@ interface VitalSigns {
   temperature?: number
   weight?: number
   height?: number
-}
-
-interface Patient {
-  id: number
-  firstName: string
-  lastName: string
-  phone: string
-  email?: string
-  dateOfBirth?: string
-  address?: string
-  createdAt?: string
 }
 
 interface AddVisitDialogProps {
@@ -81,7 +70,7 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
     treatment: "",
     medications: [] as Medication[],
     followUpDate: "",
-    notes: "",
+    notes: [] as string[],
   })
 
   const [newSymptom, setNewSymptom] = useState("")
@@ -98,8 +87,8 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
     e.preventDefault()
 
     const visitData: Omit<Visit, "id" | "createdAt"> = {
-      patientId,
-      appointmentId: appointmentId || "",
+      patientId: Number(patientId),
+      // appointmentId: appointmentId || "",
       ...formData,
       vitalSigns: {
         ...formData.vitalSigns,
@@ -110,7 +99,7 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
       },
     }
 
-    addVisit(visitData)
+    // addVisit(visitData)
     resetForm()
     onOpenChange(false)
   }
@@ -132,7 +121,7 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
       treatment: "",
       medications: [],
       followUpDate: "",
-      notes: "",
+      notes: [],
     })
     setNewSymptom("")
     setNewDiagnosis("")
@@ -181,10 +170,10 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
 
   const addMedication = () => {
     if (newMedication.name.trim()) {
-      setFormData((prev) => ({
-        ...prev,
-        medications: [...prev.medications, newMedication],
-      }))
+      // setFormData((prev) => ({
+      //   ...prev,
+      //   medications: [...prev.medications, newMedication],
+      // }))
       setNewMedication({
         name: "",
         dosage: "",
@@ -476,7 +465,7 @@ export function AddVisitDialog({ open, onOpenChange, patientId, appointmentId }:
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
+              // onChange={(e) => setFormData((prev) => ({ ...prev, notes: e.target.value }))}
               placeholder="Additional notes or observations..."
               rows={3}
             />
